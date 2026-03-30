@@ -11,6 +11,8 @@ use App\Http\Controllers\KoleksiController;
 use App\Http\Controllers\LaporanController;
 use App\Models\Book;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | PUBLIC ROUTES
@@ -28,6 +30,11 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// PETUGAS
+Route::middleware(['auth', 'role:petugas'])->group(function () {
+    Route::get('/petugas/dashboard', [App\Http\Controllers\Petugas\DashboardController::class, 'index'])
+        ->name('petugas.dashboard');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +48,7 @@ Route::middleware('role:admin')->group(function () {
     // CRUD Petugas
     Route::resource('petugas', PetugasController::class);
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -87,17 +95,6 @@ Route::middleware('role:admin,petugas')->group(function () {
     Route::get('/laporan/penolakan', [LaporanController::class, 'laporanPenolakan'])
     ->name('laporan.penolakan');
 
-});
- 
-
-/*
-|--------------------------------------------------------------------------
-| PETUGAS ROUTES
-|--------------------------------------------------------------------------
-*/
-Route::middleware('role:petugas')->group(function () {
-    // Dashboard
-    Route::get('/petugas-home', fn() => view('petugas.dashboard'))->name('petugas.dashboard');
 });
 
 

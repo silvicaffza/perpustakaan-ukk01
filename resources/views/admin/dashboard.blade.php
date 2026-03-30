@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('page_title', 'Dashboard')
+@section('page_title', 'Beranda Admin')
 
 @section('content')
 
-<h2 style="margin-bottom:15px;">Dashboard Admin</h2>
+<h2 style="margin-bottom:15px;">Beranda Admin</h2>
 
 {{-- 📊 STATISTIK --}}
 <div style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:20px;">
 
     <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #ddd;">
-        <div>Total User</div>
+        <div>Total Pengguna</div>
         <b style="font-size:20px;">{{ $totalUsers }}</b>
     </div>
 
@@ -26,11 +26,11 @@
 
 </div>
 
-{{-- 📌 STATUS --}}
+{{-- 📌 STATUS PEMINJAMAN --}}
 <div style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:20px;">
 
     <div style="background:#fff; padding:12px; border:1px solid #ddd; border-radius:6px;">
-        Pending: <b>{{ $pendingLoans }}</b>
+        Menunggu Persetujuan: <b>{{ $pendingLoans }}</b>
     </div>
 
     <div style="background:#fff; padding:12px; border:1px solid #ddd; border-radius:6px;">
@@ -38,11 +38,11 @@
     </div>
 
     <div style="background:#fff; padding:12px; border:1px solid #ddd; border-radius:6px;">
-        Dipinjam: <b>{{ $borrowedLoans }}</b>
+        Sedang Dipinjam: <b>{{ $borrowedLoans }}</b>
     </div>
 
     <div style="background:#fff; padding:12px; border:1px solid #ddd; border-radius:6px;">
-        Dikembalikan: <b>{{ $returnedLoans }}</b>
+        Sudah Dikembalikan: <b>{{ $returnedLoans }}</b>
     </div>
 
     <div style="background:#fff; padding:12px; border:1px solid #ddd; border-radius:6px;">
@@ -51,16 +51,26 @@
 
 </div>
 
-{{-- 📌 AKTIVITAS --}}
+{{-- 📌 AKTIVITAS TERBARU --}}
 <div style="background:#fff; padding:15px; border-radius:8px; border:1px solid #ddd;">
 
     <h4 style="margin-bottom:10px;">Aktivitas Terbaru</h4>
 
+    @php
+        $statusText = [
+            'pending' => 'Menunggu Persetujuan',
+            'approved' => 'Disetujui',
+            'borrowed' => 'Sedang Dipinjam',
+            'returned' => 'Sudah Dikembalikan',
+            'rejected' => 'Ditolak',
+        ];
+    @endphp
+
     <table style="width:100%; border-collapse:collapse;">
         <thead>
             <tr style="background:#f5f5f5;">
-                <th style="padding:8px; border:1px solid #ddd;">User</th>
-                <th style="padding:8px; border:1px solid #ddd;">Buku</th>
+                <th style="padding:8px; border:1px solid #ddd;">Nama Pengguna</th>
+                <th style="padding:8px; border:1px solid #ddd;">Judul Buku</th>
                 <th style="padding:8px; border:1px solid #ddd;">Status</th>
             </tr>
         </thead>
@@ -75,13 +85,13 @@
                         {{ $loan->book->title }}
                     </td>
                     <td style="padding:8px; border:1px solid #ddd;">
-                        {{ ucfirst($loan->status) }}
+                        {{ $statusText[$loan->status] ?? $loan->status }}
                     </td>
                 </tr>
             @empty
                 <tr>
                     <td colspan="3" style="text-align:center; padding:10px;">
-                        Belum ada aktivitas
+                        Belum ada aktivitas terbaru
                     </td>
                 </tr>
             @endforelse

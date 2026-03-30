@@ -48,7 +48,7 @@ public function login(Request $request)
         if($user->role == 'admin'){
             return redirect('/admin/dashboard');
         } elseif($user->role == 'petugas'){
-            return redirect('/petugas-home');
+           return redirect()->route('petugas.dashboard');
         } else {
             return redirect('/user/dashboard');
         }

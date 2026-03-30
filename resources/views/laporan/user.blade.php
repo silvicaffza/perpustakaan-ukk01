@@ -362,51 +362,77 @@
 
     <!-- TABLE -->
 
-    <table>
+<table>
 
-        <thead>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Tanggal Daftar</th>
+            <th>Jumlah Keterlambatan</th> {{-- 🔥 tambahan --}}
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @forelse($users as $user)
 
             <tr>
-                <th width="60">No</th>
-                <th>Nama</th>
-                <th>Email</th>
-                <th width="120">Role</th>
-                <th width="200">Tanggal Daftar</th>
+
+                <td>{{ $loop->iteration }}</td>
+
+                <td><strong>{{ $user->name }}</strong></td>
+
+                <td>{{ $user->email }}</td>
+
+                <td>{{ ucfirst($user->role) }}</td>
+
+                <td>{{ $user->created_at->format('d M Y') }}</td>
+
+                <td>
+                    @if($user->role === 'user')
+
+                        @php
+                            $lateCount = $user->loans
+                                ->whereNotNull('returned_at')
+                                ->filter(function($loan){
+                                    return $loan->returned_at > $loan->due_date;
+                                })
+                                ->count();
+                        @endphp
+
+                        @if($lateCount > 0)
+                            <span style="color:red; font-weight:600;">
+                                {{ $lateCount }} kali
+                            </span>
+                        @else
+                            <span style="color:green;">
+                                0 (Tepat Waktu)
+                            </span>
+                        @endif
+
+                    @else
+                        -
+                    @endif
+                </td>
+
             </tr>
 
-        </thead>
+        @empty
 
-        <tbody>
+            <tr>
+                <td colspan="6" style="text-align:center;color:#777">
+                    Tidak ada data
+                </td>
+            </tr>
 
-            @forelse($users as $user)
+        @endforelse
 
-                <tr>
+    </tbody>
 
-                    <td>{{ $loop->iteration }}</td>
-
-                    <td><strong>{{ $user->name }}</strong></td>
-
-                    <td>{{ $user->email }}</td>
-
-                    <td>{{ ucfirst($user->role) }}</td>
-
-                    <td>{{ $user->created_at->format('d M Y') }}</td>
-
-                </tr>
-
-            @empty
-
-                <tr>
-                    <td colspan="5" style="text-align:center;color:#777">
-                        Tidak ada data
-                    </td>
-                </tr>
-
-            @endforelse
-
-        </tbody>
-
-    </table>
+</table>
 
 
     <!-- SIGNATURE -->

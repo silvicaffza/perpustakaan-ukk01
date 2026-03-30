@@ -33,17 +33,13 @@ class LaporanController extends Controller
         return view('laporan.buku', compact('books','start','end'));
     }
 
-
-    // =========================
-    // 👤 LAPORAN USER
-    // =========================
-    public function user(Request $request)
+public function user(Request $request)
     {
         $start = $request->start;
         $end = $request->end;
         $role = $request->role;
 
-        $query = User::query();
+        $query = User::with('loans'); // 🔥 penting
 
         if ($role) {
             $query->where('role', $role);

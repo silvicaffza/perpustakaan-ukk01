@@ -53,10 +53,12 @@
     font-weight: 600;
 }
 
+/* warna tetap pakai class status */
 .pending { background: #fff4e6; color: #e67e22; }
 .approved { background: #e6f0ff; color: #1d4ed8; }
 .borrowed { background: #e6f9f0; color: #1e7e34; }
 .rejected { background: #ffe6e6; color: #c0392b; }
+.returned { background: #e8f8ff; color: #0c8599; }
 
 .action-btn {
     padding: 6px 12px;
@@ -105,15 +107,25 @@
 
 <div class="card">
 
-    <div class="card-title">📖 Daftar Peminjaman</div>
+    <div class="card-title">📖 Daftar Peminjaman Buku</div>
+
+    @php
+        $statusText = [
+            'pending' => 'Menunggu Persetujuan',
+            'approved' => 'Disetujui',
+            'borrowed' => 'Sedang Dipinjam',
+            'returned' => 'Sudah Dikembalikan',
+            'rejected' => 'Ditolak',
+        ];
+    @endphp
 
     <table class="table">
         <thead>
             <tr>
-                <th>User</th>
-                <th>Buku</th>
+                <th>Nama Pengguna</th>
+                <th>Judul Buku</th>
                 <th>Status</th>
-                <th>Return Request</th>
+                <th>Permintaan Pengembalian</th>
                 <th>Aksi</th>
                 <th>Pinjaman Aktif</th>
             </tr>
@@ -135,13 +147,13 @@
 
                     <td>
                         <span class="badge {{ $loan->status }}">
-                            {{ ucfirst($loan->status) }}
+                            {{ $statusText[$loan->status] ?? $loan->status }}
                         </span>
                     </td>
 
                     <td>
                         @if($loan->return_requested_at && !$loan->returned_at)
-                            ⏳ Menunggu
+                            ⏳ Menunggu Persetujuan
                         @elseif($loan->returned_at)
                             ✅ Selesai
                         @else
@@ -151,12 +163,12 @@
 
                     <td>
 
-                        {{-- PENDING --}}
+                        {{-- MENUNGGU --}}
                         @if($loan->status == 'pending')
 
                             <form action="{{ route('loans.approve', $loan->id) }}" method="POST" style="display:inline">
                                 @csrf
-                                <button class="action-btn btn-approve">Approve</button>
+                                <button class="action-btn btn-approve">Setujui</button>
                             </form>
 
                             <button onclick="openRejectModal({{ $loan->id }})" class="action-btn btn-reject">
@@ -165,7 +177,7 @@
 
                         @endif
 
-                        {{-- APPROVED --}}
+                        {{-- DISETUJUI --}}
                         @if($loan->status == 'approved')
 
                             <form action="{{ route('loans.pickup', $loan->id) }}" method="POST">
@@ -177,12 +189,12 @@
 
                         @endif
 
-                        {{-- RETURN --}}
+                        {{-- PENGEMBALIAN --}}
                         @if($loan->return_requested_at && !$loan->returned_at)
                             <form action="{{ route('loans.return', $loan->id) }}" method="POST">
                                 @csrf
                                 <button class="action-btn btn-approve">
-                                    Approve Return
+                                    Setujui Pengembalian
                                 </button>
                             </form>
                         @endif
@@ -206,7 +218,7 @@
             @empty
                 <tr>
                     <td colspan="6" style="text-align:center;">
-                        Belum ada data
+                        Belum ada data peminjaman
                     </td>
                 </tr>
             @endforelse

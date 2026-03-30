@@ -362,8 +362,8 @@
 
             <nav class="nav">
 
-                <a href="{{ route('petugas.dashboard') }}" class="{{ request()->is('*dashboard*') ? 'active' : '' }}">
-
+                <a href="/petugas/dashboard" class="{{ request()->is('*info*') ? 'active' : '' }}">
+    
                     <span>
 
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -550,6 +550,90 @@
                     </div>
 
                 </details>
+                @php
+                    $laporanActive = request()->is('laporan/buku*')
+                        || request()->is('laporan/user*')
+                        || request()->is('laporan/peminjaman*')
+                        || request()->is('laporan/pengembalian*')
+                        || request()->is('laporan/penolakan*')
+                ;@endphp
+
+                <details class="dd" {{ $laporanActive ? 'open' : '' }}>
+                    <summary class="dd-sum {{ $laporanActive ? 'active' : '' }}">
+                        <span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M3 3V21H21" />
+                                <path d="M7 14L12 9L16 13L21 8" />
+                            </svg>
+                            <span class="nav-text">Laporan</span>
+                        </span>
+                        <span class="arrow">▾</span>
+                    </summary>
+
+                    <div class="dd-item">
+
+                        <a href="{{ route('laporan.buku') }}"
+                            class="{{ request()->routeIs('laporan.buku') ? 'active' : '' }}">
+                            <span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M4 19.5V4.5A2.5 2.5 0 016.5 2H20V22H6.5A2.5 2.5 0 014 19.5Z" />
+                                </svg>
+                                <span class="nav-text">Laporan Buku</span>
+                            </span>
+                        </a>
+
+                        <a href="{{ route('laporan.user') }}"
+                            class="{{ request()->routeIs('laporan.user') ? 'active' : '' }}">
+                            <span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="9" cy="7" r="4" />
+                                    <circle cx="17" cy="7" r="4" />
+                                    <path d="M3 21C3 16 7 14 9 14" />
+                                    <path d="M15 14C17 14 21 16 21 21" />
+                                </svg>
+                                <span class="nav-text">Laporan Akun User</span>
+                            </span>
+                        </a>
+
+                        <a href="{{ route('laporan.peminjaman') }}"
+                            class="{{ request()->routeIs('laporan.peminjaman') ? 'active' : '' }}">
+                            <span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="16" rx="2" />
+                                    <path d="M7 8H17" />
+                                </svg>
+                                <span class="nav-text">Laporan Peminjaman</span>
+                            </span>
+                        </a>
+
+                        <a href="{{ route('laporan.pengembalian') }}"
+                            class="{{ request()->routeIs('laporan.pengembalian') ? 'active' : '' }}">
+                            <span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="9 11 12 14 22 4" />
+                                </svg>
+                                <span class="nav-text">Laporan Pengembalian</span>
+                            </span>
+                        </a>
+
+                        <a href="{{ route('laporan.penolakan') }}"
+                            class="{{ request()->routeIs('laporan.penolakan') ? 'active' : '' }}">
+                            <span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="9 11 12 14 22 4" />
+                                </svg>
+                                <span class="nav-text">Laporan Penolakan</span>
+                            </span>
+                        </a>
+
+                    </div>
+                </details>
             </nav>
 
             <div class="sidebar-footer">
@@ -570,7 +654,7 @@
                 <div class="topbar-right">
                     <div class="pill">Halo, <b>{{ auth()->user()->name }}</b></div>
 
-                    <a href="/" class="btn">Landing</a>
+                    
 
                     <form method="POST" action="/logout" style="margin:0;">
                         @csrf
@@ -589,20 +673,7 @@
 
     </div>
 
-    <script>
 
-        const sidebar = document.getElementById('sidebar');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('collapsed');
-            localStorage.setItem('sidebar', sidebar.classList.contains('collapsed'));
-        }
-
-        if (localStorage.getItem('sidebar') === 'true') {
-            sidebar.classList.add('collapsed');
-        }
-
-    </script>
 
 </body>
 

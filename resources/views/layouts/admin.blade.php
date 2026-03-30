@@ -632,8 +632,7 @@
                 <div class="topbar-right">
                     <div class="pill">Halo, <b>{{ auth()->user()->name }}</b></div>
 
-                    <a href="/" class="btn">Landing</a>
-
+                    
                     <form method="POST" action="/logout" style="margin:0;">
                         @csrf
                         <button type="submit" class="btn btn-primary">Logout</button>
