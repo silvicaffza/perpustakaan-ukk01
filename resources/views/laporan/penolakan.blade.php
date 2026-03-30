@@ -5,7 +5,7 @@
 
 @extends($layout)
 
-@section('page_title', 'Laporan Peminjaman Aktif')
+@section('page_title', 'Laporan Penolakan')
 
 @section('content')
 
@@ -48,7 +48,7 @@
     }
 
     .btn-primary {
-        background: #2563eb;
+        background: #dc2626;
         color: white;
     }
 
@@ -63,8 +63,8 @@
 
     .total-box {
         float: right;
-        background: #eef2ff;
-        border: 1px solid #c7d2fe;
+        background: #fee2e2;
+        border: 1px solid #fecaca;
         padding: 8px 14px;
         border-radius: 6px;
         font-weight: 600;
@@ -78,7 +78,7 @@
     }
 
     thead {
-        background: #f1f5f9;
+        background: #fef2f2;
     }
 
     th {
@@ -93,12 +93,6 @@
 
     tbody tr:hover {
         background: #f9fafb;
-    }
-
-    .overdue {
-        background: #fee2e2 !important;
-        color: #991b1b;
-        font-weight: 600;
     }
 
     /* PRINT */
@@ -181,7 +175,7 @@
 </style>
 
 <div class="report-title">
-    📚 Laporan Peminjaman Aktif
+    ❌ Laporan Penolakan Peminjaman
 </div>
 
 <div class="total-box">
@@ -190,7 +184,7 @@
 
 <div class="print-header">
     <h2>PERPUSTAKAAN</h2>
-    <h3>LAPORAN PEMINJAMAN AKTIF</h3>
+    <h3>LAPORAN PENOLAKAN PEMINJAMAN</h3>
 </div>
 
 <hr class="print-line">
@@ -212,7 +206,7 @@
         <tr>
             <td style="border:none">
                 Laporan :
-                <b>Peminjaman Aktif</b>
+                <b>Penolakan Peminjaman</b>
             </td>
             <td style="border:none;text-align:right">
                 Tanggal Cetak :
@@ -230,6 +224,7 @@
 </div>
 
 <form method="GET" class="filter-bar">
+
     <label>Dari</label>
     <input type="date" name="start" value="{{ request('start') }}">
 
@@ -238,13 +233,14 @@
 
     <button class="btn btn-primary">Filter</button>
 
-    <a href="{{ route('laporan.peminjaman') }}" class="btn btn-secondary">
+    <a href="{{ route('laporan.penolakan') }}" class="btn btn-secondary">
         Reset
     </a>
 
     <button onclick="window.print()" type="button" class="btn btn-print">
         🖨 Print / Save PDF
     </button>
+
 </form>
 
 <table>
@@ -253,9 +249,8 @@
             <th>No</th>
             <th>User</th>
             <th>Buku</th>
-            <th>Tanggal Pinjam</th>
-            <th>Jatuh Tempo</th>
-            <th>Status</th>
+            <th>Tanggal Pengajuan</th>
+            <th>Alasan Ditolak</th>
         </tr>
     </thead>
 
@@ -263,51 +258,25 @@
 
         @forelse($loans as $loan)
 
-            <tr class="{{ 
-                $loan->status == 'borrowed' && 
-                $loan->due_date && 
-                now()->gt($loan->due_date) 
-                ? 'overdue' : '' 
-            }}">
-
+            <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $loan->user->name }}</td>
                 <td>{{ $loan->book->title }}</td>
 
                 <td>
-                    {{ $loan->borrowed_at 
-                        ? \Carbon\Carbon::parse($loan->borrowed_at)->format('d M Y') 
-                        : '-' 
-                    }}
+                    {{ \Carbon\Carbon::parse($loan->created_at)->format('d M Y') }}
                 </td>
 
                 <td>
-                    {{ $loan->due_date 
-                        ? \Carbon\Carbon::parse($loan->due_date)->format('d M Y') 
-                        : '-' 
-                    }}
+                    {{ $loan->rejection_reason ?? '-' }}
                 </td>
-
-                <td>
-                    @if($loan->status == 'approved')
-                        <span style="color:#3b82f6;">Disetujui</span>
-
-                    @elseif($loan->status == 'borrowed')
-                        @if($loan->due_date && now()->gt($loan->due_date))
-                            <span style="color:red;font-weight:600;">Terlambat</span>
-                        @else
-                            <span style="color:green;">Dipinjam</span>
-                        @endif
-                    @endif
-                </td>
-
             </tr>
 
         @empty
 
             <tr>
-                <td colspan="6" style="text-align:center;color:#777">
-                    Tidak ada data
+                <td colspan="5" style="text-align:center;color:#777">
+                    Tidak ada data penolakan
                 </td>
             </tr>
 

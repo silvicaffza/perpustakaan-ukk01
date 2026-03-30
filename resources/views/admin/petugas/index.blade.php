@@ -117,9 +117,6 @@
                 </td>
                 <td>{{ $p->email }}</td>
                 <td>
-                    <a href="{{ route('petugas.show',$p->id) }}" class="action-btn edit">
-                        Detail
-                    </a>
                     <a href="{{ route('petugas.edit',$p->id) }}" class="action-btn edit">
                         Edit
                     </a>

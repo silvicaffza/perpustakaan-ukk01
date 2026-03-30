@@ -531,7 +531,9 @@
                     $laporanActive = request()->is('laporan/buku*')
                         || request()->is('laporan/user*')
                         || request()->is('laporan/peminjaman*')
-                || request()->is('laporan/pengembalian*');@endphp
+                        || request()->is('laporan/pengembalian*')
+                        || request()->is('laporan/penolakan*')
+                ;@endphp
 
                 <details class="dd" {{ $laporanActive ? 'open' : '' }}>
                     <summary class="dd-sum {{ $laporanActive ? 'active' : '' }}">
@@ -593,6 +595,17 @@
                                     <polyline points="9 11 12 14 22 4" />
                                 </svg>
                                 <span class="nav-text">Laporan Pengembalian</span>
+                            </span>
+                        </a>
+
+                        <a href="{{ route('laporan.penolakan') }}"
+                            class="{{ request()->routeIs('laporan.penolakan') ? 'active' : '' }}">
+                            <span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="9 11 12 14 22 4" />
+                                </svg>
+                                <span class="nav-text">Laporan Penolakan</span>
                             </span>
                         </a>
 

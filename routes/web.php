@@ -84,6 +84,8 @@ Route::middleware('role:admin,petugas')->group(function () {
     Route::get('/laporan/user', [LaporanController::class,'user'])->name('laporan.user');
     Route::get('/laporan/peminjaman', [LaporanController::class,'peminjaman'])->name('laporan.peminjaman');
     Route::get('/laporan/pengembalian', [LaporanController::class,'pengembalian'])->name('laporan.pengembalian');
+    Route::get('/laporan/penolakan', [LaporanController::class, 'laporanPenolakan'])
+    ->name('laporan.penolakan');
 
 });
  

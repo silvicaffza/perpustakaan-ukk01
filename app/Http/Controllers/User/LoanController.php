@@ -153,7 +153,7 @@ class LoanController extends Controller
     {
         $loan = Loan::with(['user', 'book'])->findOrFail($id);
 
-        if (!in_array($loan->status, ['approved', 'borrowed'])) {
+        if (!in_array($loan->status, ['approved', 'borrowed','returned'])) {
             return back()->with('error', 'Bukti belum tersedia.');
         }
 

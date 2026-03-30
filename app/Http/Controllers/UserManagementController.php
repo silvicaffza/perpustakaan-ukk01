@@ -8,11 +8,21 @@ use Illuminate\Support\Facades\Hash;
 
 class UserManagementController extends Controller
 {
-    public function index()
-    {
-        $users = User::where('role', 'user')->get();
-        return view('account-user.index', compact('users'));
-    }
+  public function index()
+{
+    $users = User::where('role', 'user')
+        ->withCount([
+            'loans as total_loans',
+            'loans as late_loans' => function ($q) {
+                $q->whereNotNull('returned_at')
+                  ->whereColumn('returned_at', '>', 'due_date');
+            }
+        ])
+        ->latest()
+        ->get();
+
+    return view('account-user.index', compact('users'));
+}
 
     public function show($id)
     {

@@ -11,6 +11,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class LaporanController extends Controller
 {
 
+    // =========================
+    // 📚 LAPORAN BUKU
+    // =========================
     public function buku(Request $request)
     {
         $start = $request->start;
@@ -31,6 +34,9 @@ class LaporanController extends Controller
     }
 
 
+    // =========================
+    // 👤 LAPORAN USER
+    // =========================
     public function user(Request $request)
     {
         $start = $request->start;
@@ -56,39 +62,41 @@ class LaporanController extends Controller
     }
 
 
-public function peminjaman(Request $request)
-{
-    $start = $request->start;
-    $end = $request->end;
-    $status = $request->status; // 🔥 tambah ini
+    // =========================
+    // 📚 LAPORAN PEMINJAMAN AKTIF
+    // =========================
+    public function peminjaman(Request $request)
+    {
+        $start = $request->start;
+        $end = $request->end;
 
-    $query = Loan::with(['user','book']);
+        $query = Loan::with(['user','book'])
 
-    // FILTER TANGGAL
-    if($start){
-        $query->whereDate('borrowed_at','>=',$start);
+            // 🔥 HANYA YANG AKTIF
+            ->whereIn('status', ['approved', 'borrowed']);
+
+        // FILTER TANGGAL
+        if ($start) {
+            $query->whereDate('borrowed_at', '>=', $start);
+        }
+
+        if ($end) {
+            $query->whereDate('borrowed_at', '<=', $end);
+        }
+
+        $loans = $query->latest()->get();
+
+        return view('laporan.peminjaman', [
+            'loans' => $loans,
+            'start' => $start,
+            'end' => $end
+        ]);
     }
 
-    if($end){
-        $query->whereDate('borrowed_at','<=',$end);
-    }
 
-    // 🔥 FILTER STATUS
-    if($status){
-        $query->where('status', $status);
-    }
-
-    $loans = $query->latest()->get();
-
-    return view('laporan.peminjaman',[
-        'loans'=>$loans,
-        'start'=>$start,
-        'end'=>$end,
-        'status'=>$status // kirim ke view
-    ]);
-}
-
-
+    // =========================
+    // ✅ LAPORAN PENGEMBALIAN
+    // =========================
     public function pengembalian(Request $request)
     {
         $start = $request->start;
@@ -109,4 +117,31 @@ public function peminjaman(Request $request)
 
         return view('laporan.pengembalian', compact('loans','start','end'));
     }
+
+
+    // =========================
+    // ❌ LAPORAN PENOLAKAN
+    // =========================
+    public function laporanPenolakan(Request $request)
+    {
+        $query = Loan::with(['user','book'])
+            ->where('status', 'rejected');
+
+        if ($request->start) {
+            $query->whereDate('created_at', '>=', $request->start);
+        }
+
+        if ($request->end) {
+            $query->whereDate('created_at', '<=', $request->end);
+        }
+
+        $loans = $query->latest()->get();
+
+        return view('laporan.penolakan', [
+            'loans' => $loans,
+            'start' => $request->start,
+            'end' => $request->end
+        ]);
+    }
+
 }
