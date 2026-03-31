@@ -12,30 +12,30 @@ class DatabaseSeeder extends Seeder
     {
         // Buat Admin
         User::firstOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@gnmail.com'],
             [
                 'name' => 'Admin User',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'role' => 'admin',
             ]
         );
 
         // Buat Petugas
         User::firstOrCreate(
-            ['email' => 'petugas@example.com'],
+            ['email' => 'petugas@gmail.com'],
             [
                 'name' => 'Petugas User',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'role' => 'petugas',
             ]
         );
 
         // Buat User Biasa
         User::firstOrCreate(
-            ['email' => 'user@example.com'],
+            ['email' => 'user@gmail.com'],
             [
                 'name' => 'Regular User',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('123456'),
                 'role' => 'user',
             ]
         );
