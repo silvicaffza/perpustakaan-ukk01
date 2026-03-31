@@ -11,7 +11,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class LoanController extends Controller
 {
     // 📚 Pinjaman aktif
-    public function index()
+    public function index() 
     {
         $loans = auth()->user()->loans()
             ->whereIn('status', ['pending', 'approved', 'borrowed'])

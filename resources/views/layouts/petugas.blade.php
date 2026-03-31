@@ -201,32 +201,6 @@
             transform: rotate(180deg);
         }
 
-        /* COLLAPSED */
-
-        .sidebar.collapsed .brand-title,
-        .sidebar.collapsed .brand-sub,
-        .sidebar.collapsed .nav-text,
-        .sidebar.collapsed .dd-item,
-        .sidebar.collapsed .arrow {
-            opacity: 0;
-            width: 0;
-            pointer-events: none;
-        }
-
-        .sidebar.collapsed .nav a,
-        .sidebar.collapsed .dd-sum {
-            justify-content: center;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 10px;
-        }
-
         /* FOOTER */
 
         .sidebar-footer {
@@ -246,6 +220,7 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
+            background-color: white;
         }
 
         /* TOPBAR */
@@ -295,7 +270,6 @@
             background: white;
             padding: 6px 12px;
             border-radius: 8px;
-            cursor: pointer;
             text-decoration: none;
             font-size: 13px;
             color: var(--text);
@@ -342,6 +316,7 @@
 
         .content {
             margin-top: 18px;
+            
         }
     </style>
 </head>
@@ -487,68 +462,59 @@
                     </div>
 
                 </details>
-                @php
-                    $loanActive = request()->is('*loans*');
+               @php
+                    $loanActive = request()->is('loans*');
                 @endphp
 
                 <details class="dd" {{ $loanActive ? 'open' : '' }}>
-
                     <summary class="dd-sum {{ $loanActive ? 'active' : '' }}">
-
                         <span>
-
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <rect x="3" y="4" width="18" height="16" rx="2" />
                                 <path d="M7 8H17" />
                                 <path d="M7 12H17" />
                             </svg>
-
-                            <span class="nav-text">Manajemen Peminjaman</span>
-
+                            <span class="nav-text">Riwayat Transaksi</span>
                         </span>
-
                         <span class="arrow">▾</span>
-
                     </summary>
 
                     <div class="dd-item">
-
-                        <a href="{{ route('loans.index') }}" class="{{ request()->is('*loans') ? 'active' : '' }}">
-
+                        <a href="{{ route('loans.index') }}" class="{{ request()->is('loans') ? 'active' : '' }}">
                             <span>
-
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <path d="M21 15V6A2 2 0 0019 4H5A2 2 0 003 6V15" />
                                     <path d="M7 10H17" />
                                 </svg>
-
-                                <span class="nav-text">Pinjaman Aktif</span>
-
+                                <span class="nav-text">Riwayat Pinjaman</span>
                             </span>
-
                         </a>
 
                         <a href="{{ route('loans.returned') }}"
-                            class="{{ request()->is('*returned*') ? 'active' : '' }}">
-
+                            class="{{ request()->is('loans/returned*') ? 'active' : '' }}">
                             <span>
-
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <polyline points="9 11 12 14 22 4" />
                                     <path d="M21 12V19A2 2 0 0119 21H5A2 2 0 013 19V5A2 2 0 015 3H16" />
                                 </svg>
-
-                                <span class="nav-text">Riwayat Pinjaman</span>
-
+                                <span class="nav-text">Riwayat Pengembalian</span>
                             </span>
-
                         </a>
-
+                        <a href="{{ route('loans.rejected') }}"
+                            class="{{ request()->is('loans/rejected*') ? 'active' : '' }}">
+                            <span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
+                                </svg>
+                                <span class="nav-text">Riwayat Penolakan</span>
+                            </span>
+                        </a>
                     </div>
-
                 </details>
                 @php
                     $laporanActive = request()->is('laporan/buku*')

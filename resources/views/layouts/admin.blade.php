@@ -64,10 +64,6 @@
             flex-direction: column;
         }
 
-        .sidebar.collapsed {
-            width: 80px;
-        }
-
         /* BRAND */
 
         .brand {
@@ -201,31 +197,6 @@
             transform: rotate(180deg);
         }
 
-        /* COLLAPSED */
-
-        .sidebar.collapsed .brand-title,
-        .sidebar.collapsed .brand-sub,
-        .sidebar.collapsed .nav-text,
-        .sidebar.collapsed .dd-item,
-        .sidebar.collapsed .arrow {
-            opacity: 0;
-            width: 0;
-            pointer-events: none;
-        }
-
-        .sidebar.collapsed .nav a,
-        .sidebar.collapsed .dd-sum {
-            justify-content: center;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 10px;
-        }
 
         /* FOOTER */
 
@@ -295,7 +266,6 @@
             background: white;
             padding: 6px 12px;
             border-radius: 8px;
-            cursor: pointer;
             text-decoration: none;
             font-size: 13px;
             color: var(--text);
@@ -625,7 +595,7 @@
             <header class="topbar">
 
                 <div class="topbar-left">
-                    <button onclick="toggleSidebar()" class="btn">☰</button>
+                    <button class="btn">☰</button>
                     <div class="topbar-title">@yield('page_title', 'Dashboard')</div>
                 </div>
 
@@ -662,21 +632,6 @@
 
         </div>
     </div>
-
-    <script>
-
-        const sidebar = document.getElementById('sidebar');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('collapsed');
-            localStorage.setItem('sidebar', sidebar.classList.contains('collapsed'));
-        }
-
-        if (localStorage.getItem('sidebar') === 'true') {
-            sidebar.classList.add('collapsed');
-        }
-
-    </script>
 
 </body>
 

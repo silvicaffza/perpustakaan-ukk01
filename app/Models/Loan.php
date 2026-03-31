@@ -17,13 +17,15 @@ class Loan extends Model
         'due_date',
         'returned_at',
         'return_requested_at',
-        'rejection_reason'
+        'rejection_reason',
+        'pickup_deadline'
     ];
 
     protected $casts = [
         'borrowed_at' => 'datetime',
         'due_date' => 'datetime',
         'returned_at' => 'datetime',
+        'pickup_deadline' => 'datetime',
     ];
 
     // Relasi ke User

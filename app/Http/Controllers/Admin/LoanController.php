@@ -9,16 +9,17 @@ use App\Models\Book;
 
 class LoanController extends Controller
 {
-    public function index()
-    {
-        $loans = Loan::with(['user.loans', 'book'])
-            ->whereIn('status', ['pending', 'approved', 'borrowed'])
-            ->whereNull('returned_at')
-            ->latest()
-            ->get();
+public function index()
+{
+    $loans = Loan::with(['user.loans', 'book'])
+        ->whereIn('status', ['pending', 'approved', 'borrowed'])
+        ->whereNull('returned_at')
+        ->latest()
+        ->get();
 
-        return view('loans.index', compact('loans'));
-    }
+    $now = \Carbon\Carbon::now(); // waktu sekarang
+    return view('loans.index', compact('loans', 'now'));
+}
 
     // Tampilkan peminjaman yang sudah dikembalikan
     public function returned()
@@ -29,7 +30,7 @@ class LoanController extends Controller
             ->get();
 
         return view('loans.returned', compact('loans'));
-    }
+    } 
 
     // Approve pinjaman
     public function approve($id)
@@ -65,7 +66,7 @@ class LoanController extends Controller
         $loan->update([
             'status' => 'borrowed',
             'borrowed_at' => now(),
-            'due_date' => now()->addDays(14)
+            'due_date' => now()->addDays(20)
         ]);
 
         $loan->book->decrement('stock');

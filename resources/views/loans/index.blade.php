@@ -117,6 +117,7 @@
             'returned' => 'Sudah Dikembalikan',
             'rejected' => 'Ditolak',
         ];
+        $now = \Carbon\Carbon::now();
     @endphp
 
     <table class="table">
@@ -139,6 +140,12 @@
                         ->whereIn('status', ['pending','approved','borrowed'])
                         ->whereNull('returned_at')
                         ->count();
+
+                    // Cek keterlambatan pickup
+                    $isLatePickup = $loan->status == 'approved' && $loan->pickup_deadline && $loan->pickup_deadline < $now;
+
+                    $badgeClass = $isLatePickup ? '' : $loan->status;
+                    $badgeText = $isLatePickup ? '⏰ Melewati Batas Pickup' : ($statusText[$loan->status] ?? $loan->status);
                 @endphp
 
                 <tr>
@@ -146,8 +153,8 @@
                     <td>{{ $loan->book->title }}</td>
 
                     <td>
-                        <span class="badge {{ $loan->status }}">
-                            {{ $statusText[$loan->status] ?? $loan->status }}
+                        <span class="badge {{ $badgeClass }}">
+                            {{ $badgeText }}
                         </span>
                     </td>
 
@@ -165,7 +172,6 @@
 
                         {{-- MENUNGGU --}}
                         @if($loan->status == 'pending')
-
                             <form action="{{ route('loans.approve', $loan->id) }}" method="POST" style="display:inline">
                                 @csrf
                                 <button class="action-btn btn-approve">Setujui</button>
@@ -174,19 +180,16 @@
                             <button onclick="openRejectModal({{ $loan->id }})" class="action-btn btn-reject">
                                 Tolak
                             </button>
-
                         @endif
 
                         {{-- DISETUJUI --}}
                         @if($loan->status == 'approved')
-
                             <form action="{{ route('loans.pickup', $loan->id) }}" method="POST">
                                 @csrf
                                 <button class="action-btn btn-approve">
                                     Konfirmasi Pengambilan
                                 </button>
                             </form>
-
                         @endif
 
                         {{-- PENGEMBALIAN --}}
@@ -197,6 +200,13 @@
                                     Setujui Pengembalian
                                 </button>
                             </form>
+                        @endif
+
+                        {{-- Tolak otomatis jika lewat pickup deadline --}}
+                        @if($isLatePickup)
+                            <button onclick="openRejectModal({{ $loan->id }})" class="action-btn btn-reject" style="margin-top:4px;">
+                                Tolak Karena Lambat Ambil
+                            </button>
                         @endif
 
                     </td>
