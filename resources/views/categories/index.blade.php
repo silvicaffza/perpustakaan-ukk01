@@ -99,9 +99,9 @@
 <div class="card">
 
     <div class="card-header">
-        <div class="card-title">📚 Data Kategori</div>
+        <div class="card-title">Data Kategori</div>
         <a href="{{ route('categories.create') }}" class="btn-primary">
-            + Tambah Kategori
+            Tambah Kategori
         </a>
     </div>
 

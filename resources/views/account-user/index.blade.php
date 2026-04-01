@@ -99,8 +99,8 @@
     <div class="card">
 
         <div class="card-header">
-            <div class="card-title">👤 Data User</div>
-            <!-- tombol tambah dihapus -->
+            <div class="card-title"> Data User</div>
+            
         </div>
 
         <table class="table">

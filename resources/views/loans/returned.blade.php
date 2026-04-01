@@ -93,7 +93,7 @@
 <div class="card">
 
     <div class="card-header">
-        <div class="card-title">📚 Riwayat Buku Dikembalikan</div>
+        <div class="card-title">Riwayat Buku Dikembalikan</div>
         <div class="badge-total">
             {{ $loans->count() }} Buku
         </div>

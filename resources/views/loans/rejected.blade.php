@@ -70,12 +70,12 @@
 
 <div class="card">
 
-    <div class="card-title">❌ Riwayat Penolakan</div>
+    <div class="card-title"> Riwayat Penolakan</div>
 
     <table class="table">
         <thead>
             <tr>
-                <th>User</th>
+                <th>Akun</th>
                 <th>Buku</th>
                 <th>Tanggal</th>
                 <th>Status</th>

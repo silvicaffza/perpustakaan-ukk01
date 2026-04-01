@@ -299,7 +299,13 @@ function scrollRightFavorit() {
     font-size: 15px;
     color: #D6C8BA;
 }
+.book-title{
+    font-weight: 600
+}
 
+.book-author{
+    color:  #0d31a5a1;
+}
 .scroll-section {
     position: relative;
     margin-bottom: 60px;

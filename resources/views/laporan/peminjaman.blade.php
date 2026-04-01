@@ -181,7 +181,7 @@
 </style>
 
 <div class="report-title">
-    📚 Laporan Peminjaman Aktif
+    Laporan Peminjaman Aktif
 </div>
 
 <div class="total-box">
@@ -243,7 +243,7 @@
     </a>
 
     <button onclick="window.print()" type="button" class="btn btn-print">
-        🖨 Print / Save PDF
+        🖨 Print 
     </button>
 </form>
 
@@ -251,7 +251,7 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>User</th>
+            <th>Akun</th>
             <th>Buku</th>
             <th>Tanggal Pinjam</th>
             <th>Jatuh Tempo</th>

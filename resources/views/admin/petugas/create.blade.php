@@ -72,7 +72,7 @@
 
 <div class="card">
 
-    <div class="card-title">➕ Tambah Petugas</div>
+    <div class="card-title"> Tambah Petugas</div>
 
     <form action="{{ route('petugas.store') }}" method="POST">
         @csrf

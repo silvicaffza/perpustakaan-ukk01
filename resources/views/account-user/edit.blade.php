@@ -77,7 +77,7 @@
 
 <div class="card">
 
-    <div class="card-title">✏️ Edit User</div>
+    <div class="card-title"> Edit User</div>
 
     <form action="{{ route('account-user.update', $user->id) }}" method="POST">
         @csrf

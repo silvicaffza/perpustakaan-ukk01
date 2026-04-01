@@ -107,7 +107,7 @@
 
 <div class="card">
 
-    <div class="card-title">📖 Daftar Peminjaman Buku</div>
+    <div class="card-title">Daftar Peminjaman Buku</div>
 
     @php
         $statusText = [
@@ -145,7 +145,7 @@
                     $isLatePickup = $loan->status == 'approved' && $loan->pickup_deadline && $loan->pickup_deadline < $now;
 
                     $badgeClass = $isLatePickup ? '' : $loan->status;
-                    $badgeText = $isLatePickup ? '⏰ Melewati Batas Pickup' : ($statusText[$loan->status] ?? $loan->status);
+                    $badgeText = $isLatePickup ? ' Melewati Batas Pickup' : ($statusText[$loan->status] ?? $loan->status);
                 @endphp
 
                 <tr>
@@ -160,9 +160,9 @@
 
                     <td>
                         @if($loan->return_requested_at && !$loan->returned_at)
-                            ⏳ Menunggu Persetujuan
+                            Menunggu Persetujuan
                         @elseif($loan->returned_at)
-                            ✅ Selesai
+                             Selesai
                         @else
                             -
                         @endif
@@ -214,7 +214,7 @@
                     <td>
                         @if($activeLoans >= 3)
                             <span style="color:red; font-weight:700;">
-                                {{ $activeLoans }} / 3 ⚠️
+                                {{ $activeLoans }} / 3 
                             </span>
                         @else
                             <span style="color:green; font-weight:600;">

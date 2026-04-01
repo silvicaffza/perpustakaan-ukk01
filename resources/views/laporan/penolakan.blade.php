@@ -175,7 +175,7 @@
 </style>
 
 <div class="report-title">
-    ❌ Laporan Penolakan Peminjaman
+    Laporan Penolakan Peminjaman
 </div>
 
 <div class="total-box">
@@ -238,7 +238,7 @@
     </a>
 
     <button onclick="window.print()" type="button" class="btn btn-print">
-        🖨 Print / Save PDF
+        🖨 Print 
     </button>
 
 </form>
@@ -247,7 +247,7 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>User</th>
+            <th>Akun</th>
             <th>Buku</th>
             <th>Tanggal Pengajuan</th>
             <th>Alasan Ditolak</th>

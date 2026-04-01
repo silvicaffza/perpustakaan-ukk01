@@ -436,7 +436,7 @@
                                     stroke-width="2">
                                     <polygon points="12 2 15 9 22 9 17 14 19 21 12 17 5 21 7 14 2 9 9 9" />
                                 </svg>
-                                <span class="nav-text">Riwayat Review</span>
+                                <span class="nav-text">Riwayat Ulasan</span>
                             </span>
                         </a>
                     </div>
@@ -541,7 +541,7 @@
                                     <path d="M3 21C3 16 7 14 9 14" />
                                     <path d="M15 14C17 14 21 16 21 21" />
                                 </svg>
-                                <span class="nav-text">Laporan Akun User</span>
+                                <span class="nav-text">Laporan Akun</span>
                             </span>
                         </a>
 
@@ -573,7 +573,8 @@
                             <span>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
-                                    <polyline points="9 11 12 14 22 4" />
+                                    <line x1="18" y1="6" x2="6" y2="18" />
+                                    <line x1="6" y1="6" x2="18" y2="18" />
                                 </svg>
                                 <span class="nav-text">Laporan Penolakan</span>
                             </span>

@@ -94,7 +94,7 @@
 <div class="card">
 
     <div class="card-header">
-        <div class="card-title">👩‍💼 Data Petugas</div>
+        <div class="card-title"> Data Petugas</div>
         <a href="{{ route('petugas.create') }}" class="btn-primary">
             + Tambah Petugas
         </a>

@@ -89,7 +89,7 @@
 
 <div class="card">
 
-    <div class="card-title">✏️ Edit Buku</div>
+    <div class="card-title"> Edit Buku</div>
 
     <form method="POST" action="{{ route('books.update', $book->id) }}" enctype="multipart/form-data">
         @csrf

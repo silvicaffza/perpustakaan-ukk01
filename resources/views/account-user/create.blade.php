@@ -77,7 +77,7 @@
 
 <div class="card">
 
-    <div class="card-title">➕ Tambah User</div>
+    <div class="card-title"> Tambah User</div>
 
     <form action="{{ route('account-user.store') }}" method="POST">
         @csrf

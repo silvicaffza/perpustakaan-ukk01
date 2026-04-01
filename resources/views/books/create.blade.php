@@ -88,7 +88,7 @@
 
 <div class="card">
 
-    <div class="card-title">📚 Tambah Buku</div>
+    <div class="card-title"> Tambah Buku</div>
 
     <form method="POST" action="{{ route('books.store') }}" enctype="multipart/form-data">
         @csrf

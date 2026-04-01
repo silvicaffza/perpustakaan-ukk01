@@ -315,7 +315,7 @@
         </a>
 
         <button onclick="window.print()" type="button" class="btn btn-print">
-            🖨 Print / Save PDF
+            🖨 Print 
         </button>
 
     </form>

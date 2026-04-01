@@ -77,7 +77,7 @@
 
 <div class="card">
 
-    <div class="card-title">✏️ Edit Kategori</div>
+    <div class="card-title"> Edit Kategori</div>
 
     <form method="POST" action="{{ route('categories.update', $category->id) }}">
         @csrf

@@ -120,7 +120,7 @@
 <div class="card">
 
     <div class="card-header">
-        <div class="card-title">📚 Data Buku</div>
+        <div class="card-title"> Data Buku</div>
         <a href="{{ route('books.create') }}" class="btn-primary">
             + Tambah Buku
         </a>

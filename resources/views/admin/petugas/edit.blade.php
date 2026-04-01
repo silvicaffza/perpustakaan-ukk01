@@ -72,7 +72,7 @@
 
 <div class="card">
 
-    <div class="card-title">✏️ Edit Petugas</div>
+    <div class="card-title"> Edit Petugas</div>
 
     <form action="{{ route('petugas.update',$petugas->id) }}" method="POST">
         @csrf

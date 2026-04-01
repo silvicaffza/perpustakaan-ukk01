@@ -73,12 +73,12 @@
 
 <div class="card">
 
-    <div class="card-title">📝 Daftar Ulasan Buku</div>
+    <div class="card-title"> Daftar Ulasan Buku</div>
 
     <table class="table">
         <thead>
             <tr>
-                <th>User</th>
+                <th>Akun</th>
                 <th>Buku</th>
                 <th>Rating</th>
                 <th>Komentar</th>

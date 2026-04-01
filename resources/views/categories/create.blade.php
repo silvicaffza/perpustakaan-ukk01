@@ -75,7 +75,7 @@
 
 <div class="card">
 
-    <div class="card-title">➕ Tambah Kategori</div>
+    <div class="card-title"> Tambah Kategori</div>
 
     <form method="POST" action="{{ route('categories.store') }}">
         @csrf

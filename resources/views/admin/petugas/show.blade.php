@@ -58,7 +58,7 @@
 
 <div class="card">
 
-    <div class="card-title">👩‍💼 Detail Petugas</div>
+    <div class="card-title"> Detail Petugas</div>
 
     <div class="detail-group">
         <div class="label">Nama</div>

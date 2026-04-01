@@ -180,7 +180,7 @@ tbody tr:hover {
 </style>
 
 <div class="report-title">
-    📚 Laporan Pengembalian Buku
+    Laporan Pengembalian Buku
 </div>
 
 <div class="total-box">
@@ -248,7 +248,7 @@ tbody tr:hover {
     </a>
 
     <button onclick="window.print()" type="button" class="btn btn-print">
-        🖨 Print / Save PDF
+        🖨 Print 
     </button>
 
 </form>
@@ -256,8 +256,8 @@ tbody tr:hover {
 <table>
     <thead>
         <tr>
-            <th width="60">No</th>
-            <th>User</th>
+            <th>No</th>
+            <th>Akun</th>
             <th>Buku</th>
             <th width="150">Tanggal Pinjam</th>
             <th width="150">Tanggal Kembali</th>
