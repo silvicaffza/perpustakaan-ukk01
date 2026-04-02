@@ -12,17 +12,17 @@
 
         <a href="{{ route('user.loans.index') }}"
             class="loan-tab {{ request()->routeIs('user.loans.index') ? 'active' : '' }}">
-            📚 Dipinjam
+             Dipinjam
         </a>
 
         <a href="{{ route('user.loans.returns') }}"
             class="loan-tab {{ request()->routeIs('user.loans.returns') ? 'active' : '' }}">
-            🔄 Pengembalian
+             Pengembalian
         </a>
 
         <a href="{{ route('user.loans.history') }}"
             class="loan-tab {{ request()->routeIs('user.loans.history') ? 'active' : '' }}">
-            📖 Riwayat
+             Riwayat
         </a>
 
     </div>
@@ -139,7 +139,38 @@
                 </div>
 
             </div>
+<div id="reviewModal" class="modal">
+    <div class="modal-content">
 
+        <h3>Edit Review</h3>
+
+        <form id="reviewForm" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div class="rating-input">
+                @for($i = 5; $i >= 1; $i--)
+                    <input type="radio" id="modal-star{{ $i }}" name="rating" value="{{ $i }}">
+                    <label for="modal-star{{ $i }}">★</label>
+                @endfor
+            </div>
+
+            <input type="text" id="modalComment" name="comment" placeholder="Edit ulasan...">
+
+            <div style="margin-top:10px; display:flex; gap:10px;">
+                <button type="submit" class="loan-btn loan-btn-primary">
+                    Update
+                </button>
+
+                <button type="button" onclick="closeModal()" class="loan-btn loan-btn-secondary">
+                    Batal
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
         @empty
 
             <div class="empty-text">
@@ -310,11 +341,18 @@
 
     <script>
         function openModal(action, rating, comment) {
-            document.getElementById('reviewModal').style.display = 'flex'
-            document.getElementById('reviewForm').action = action
-            document.getElementById('modalRating').value = rating
-            document.getElementById('modalComment').value = comment
+    document.getElementById('reviewModal').style.display = 'flex'
+    document.getElementById('reviewForm').action = action
+    document.getElementById('modalComment').value = comment
+
+    // set rating
+    const stars = document.querySelectorAll('#reviewModal input[name="rating"]')
+    stars.forEach(star => {
+        if (star.value == rating) {
+            star.checked = true
         }
+    })
+}
 
         function closeModal() {
             document.getElementById('reviewModal').style.display = 'none'

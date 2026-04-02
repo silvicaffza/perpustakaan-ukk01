@@ -15,17 +15,17 @@
 
         <a href="{{ route('user.loans.index') }}"
             class="loan-tab {{ request()->routeIs('user.loans.index') ? 'active' : '' }}">
-            📚 Dipinjam
+             Dipinjam
         </a>
 
         <a href="{{ route('user.loans.returns') }}"
             class="loan-tab {{ request()->routeIs('user.loans.returns') ? 'active' : '' }}">
-            🔄 Pengembalian
+             Pengembalian
         </a>
 
         <a href="{{ route('user.loans.history') }}"
             class="loan-tab {{ request()->routeIs('user.loans.history') ? 'active' : '' }}">
-            📖 Riwayat
+             Riwayat
         </a>
 
     </div>

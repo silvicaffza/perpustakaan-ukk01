@@ -270,7 +270,7 @@ function scrollRightFavorit() {
 <!-- ================= STYLE ================= -->
 <style>
 .hero-section {
-    background: url('{{ asset('images/unduhan.jpg') }}') center/cover;
+    background: url('{{ asset('images/dashboard.jpg') }}') center/cover;
     border-radius: 20px;
     padding: 60px 40px;
     color: white;
@@ -282,7 +282,7 @@ function scrollRightFavorit() {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, .55);
+    background: rgba(0, 0, 0, 0.26);
 }
 
 .hero-content {
