@@ -66,6 +66,11 @@ class DashboardController extends Controller
         // ⚙️ Batas pinjam
         $maxLoans = 3;
 
+        $loans = $user->loans()
+    ->with('book') // penting biar bisa akses $loan->book->title
+    ->latest()
+    ->get();
+
         return view('user.dashboard', compact(
             'activeLoans',
             'maxLoans',
@@ -73,7 +78,8 @@ class DashboardController extends Controller
             'categories',
             'favorit',
             'lateLoan',
-            'blockedUntil'
+            'blockedUntil',
+            'loans'
         ));
     }
 }

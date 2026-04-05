@@ -55,6 +55,34 @@
 
 @endif
 
+{{-- 📚 SIAP DIAMBIL --}}
+@php
+    $approvedLoans = collect($loans ?? [])->where('status', 'approved');
+@endphp
+
+@if($approvedLoans->count() > 0)
+
+    <div style="
+        background:#e0f2fe;
+        border:1px solid #bae6fd;
+        color:#075985;
+        padding:14px 18px;
+        border-radius:10px;
+        margin-bottom:20px;
+        font-weight:600;
+    ">
+        📚 Buku siap diambil:
+
+        <ul style="margin-top:8px; padding-left:18px;">
+            @foreach($approvedLoans as $loan)
+                <li>{{ $loan->book->title }}</li>
+            @endforeach
+        </ul>
+
+        Silakan ambil di perpustakaan ya!
+    </div>
+
+@endif
 
 <!-- ================= HERO ================= -->
 <div class="hero-section">
